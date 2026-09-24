@@ -150,7 +150,9 @@ function App() {
                       checked={isSelected}
                       onChange={() => setSelectedAnswer(optionIndex)}
                     />
-                    <span className="answer-label">{option.label}</span>
+                    <span className="answer-content">
+                      <span className="answer-label">{option.label}</span>
+                    </span>
                   </label>
                 )
               })}
