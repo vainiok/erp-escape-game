@@ -22,6 +22,10 @@ describe('ERP game scoring', () => {
     expect(getResult([0, 0, 0, 0, 0, 1, 0, 1]).tone).toBe('green')
   })
 
+  it('returns green with exactly two non-legacy risk answers', () => {
+    expect(getResult([1, 0, 0, 0, 0, 1, 0, 0]).tone).toBe('green')
+  })
+
   it('counts Yli 100 as a risk answer', () => {
     expect(getRiskCount([0, 0, 0, 0, 0, 0, 1, 0])).toBe(1)
   })
