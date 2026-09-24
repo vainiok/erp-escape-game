@@ -108,8 +108,7 @@
 .selection-status,
 .helper-text,
 .result-body,
-.feature-list,
-.answer-state {
+.feature-list {
   color: #475569;
 }
 

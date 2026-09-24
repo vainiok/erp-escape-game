@@ -4,7 +4,7 @@ Interaktiivinen selainpeli Innofactorin demokäyttöön: **How to escape from th
 
 ## Paikallinen ajo
 
-Edellyttää Node.js-versiota 20+.
+Edellyttää Node.js-versiota 22.12+.
 
 ```bash
 npm install

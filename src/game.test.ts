@@ -14,6 +14,10 @@ describe('ERP game scoring', () => {
     expect(getResult([1, 1, 0, 0, 0, 0, 1, 0]).tone).toBe('yellow')
   })
 
+  it('still returns red with only two other risks when the legacy ERP answer is yes', () => {
+    expect(getResult([1, 0, 0, 0, 1, 0, 1, 0]).tone).toBe('red')
+  })
+
   it('returns green with at most two risk answers', () => {
     expect(getResult([0, 0, 0, 0, 0, 1, 0, 1]).tone).toBe('green')
   })

@@ -151,9 +151,6 @@ function App() {
                       onChange={() => setSelectedAnswer(optionIndex)}
                     />
                     <span className="answer-label">{option.label}</span>
-                    <span className="answer-state">
-                      {option.isRisk ? 'Riskivastaus' : 'Ei riskivastaus'}
-                    </span>
                   </label>
                 )
               })}
