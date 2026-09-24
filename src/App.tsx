@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
-import { getResult, questions } from './game'
+import { getResult, getRiskCount, questions } from './game'
 
 function App() {
   const [phase, setPhase] = useState<'welcome' | 'questions' | 'result'>('welcome')
@@ -14,7 +14,8 @@ function App() {
   }, [phase, currentQuestionIndex])
 
   const currentQuestion = questions[currentQuestionIndex]
-  const progressValue = phase === 'welcome' ? 0 : phase === 'result' ? questions.length : currentQuestionIndex
+  const progressValue =
+    phase === 'welcome' ? 0 : phase === 'result' ? questions.length : currentQuestionIndex + 1
   const progressLabel =
     phase === 'welcome'
       ? 'Peli ei ole vielä alkanut.'
@@ -84,7 +85,14 @@ function App() {
           </div>
         </div>
 
-        <div className="progress-track" aria-hidden="true">
+        <div
+          className="progress-track"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={questions.length}
+          aria-valuenow={progressValue}
+          aria-label="Pelin eteneminen"
+        >
           <div
             className="progress-fill"
             style={{ width: `${(progressValue / questions.length) * 100}%` }}
@@ -129,18 +137,24 @@ function App() {
                 const isSelected = selectedAnswer === optionIndex
 
                 return (
-                  <button
+                  <label
                     key={option.label}
-                    type="button"
                     className={`answer-button${isSelected ? ' selected' : ''}`}
-                    aria-pressed={isSelected}
-                    onClick={() => setSelectedAnswer(optionIndex)}
+                    htmlFor={`question-${currentQuestion.id}-option-${optionIndex}`}
                   >
+                    <input
+                      id={`question-${currentQuestion.id}-option-${optionIndex}`}
+                      className="answer-input"
+                      type="radio"
+                      name={`question-${currentQuestion.id}`}
+                      checked={isSelected}
+                      onChange={() => setSelectedAnswer(optionIndex)}
+                    />
                     <span className="answer-label">{option.label}</span>
                     <span className="answer-state">
                       {option.isRisk ? 'Riskivastaus' : 'Ei riskivastaus'}
                     </span>
-                  </button>
+                  </label>
                 )
               })}
             </fieldset>
@@ -171,7 +185,7 @@ function App() {
             </h2>
             <p className="result-body">{result.body}</p>
             <div className="result-summary" role="status" aria-live="polite">
-              <span>Riskivastauksia yhteensä: {answers.filter(Boolean).length}</span>
+              <span>Riskivastauksia yhteensä: {getRiskCount(answers)}</span>
               <span>Ota yhteyttä Innofactoriin</span>
             </div>
             <button type="button" className="primary-button" onClick={restartGame}>

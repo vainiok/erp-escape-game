@@ -195,6 +195,11 @@
   outline-offset: 3px;
 }
 
+.answer-button:has(.answer-input:focus-visible) {
+  outline: 3px solid #0f172a;
+  outline-offset: 3px;
+}
+
 .question-intro {
   display: grid;
   gap: 0.6rem;
@@ -228,6 +233,12 @@
   border-color: #cbd5e1;
   text-align: left;
   cursor: pointer;
+}
+
+.answer-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .answer-button.selected {
